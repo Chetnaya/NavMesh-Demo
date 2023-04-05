@@ -1,6 +1,9 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class LevelGenerator : MonoBehaviour {
+
+	public NavMeshSurface surface;
 
 	public int width = 10;
 	public int height = 10;
@@ -11,8 +14,11 @@ public class LevelGenerator : MonoBehaviour {
 	private bool playerSpawned = false;
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 		GenerateLevel();
+
+		surface.BuildNavMesh();
 	}
 	
 	// Create a grid based level
@@ -29,7 +35,8 @@ public class LevelGenerator : MonoBehaviour {
 					// Spawn a wall
 					Vector3 pos = new Vector3(x - width / 2f, 1f, y - height / 2f);
 					Instantiate(wall, pos, Quaternion.identity, transform);
-				} else if (!playerSpawned) // Should we spawn a player?
+				} 
+				else if (!playerSpawned) // Should we spawn a player?
 				{
 					// Spawn the player
 					Vector3 pos = new Vector3(x - width / 2f, 1.25f, y - height / 2f);
